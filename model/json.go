@@ -8,6 +8,16 @@ type Data struct {
 	AwemeList  []Item `json:"aweme_list"`
 }
 
+type SearchData struct {
+	StatusCode int          `json:"status_code"`
+	Data       []SearchItem `json:"data"`
+}
+
+type SearchItem struct {
+	Type      int  `json:"type"`
+	AwemeInfo Item `json:"aweme_info"`
+}
+
 type Item struct {
 	AwemeId      string      `json:"aweme_id"`
 	Desc         string      `json:"desc"`

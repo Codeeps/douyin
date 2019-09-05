@@ -43,13 +43,6 @@ func InputText(text string) {
 	_ = cmd.Run()
 }
 
-// InputKeyEvent 输入KeyEvent
-func InputKeyEvent(text string) {
-	cmd := exec.Command(getAdbCli(), "shell", "input", "keyevent", text)
-	cmd.Stdout = os.Stdout
-	_ = cmd.Run()
-}
-
 // InputTextByADBKeyBoard 输入文本
 func InputTextByADBKeyBoard(text string) {
 	cmd := exec.Command(getAdbCli(), "shell", "am", "broadcast", "-a", "ADB_INPUT_TEXT", "--es", "msg", text)
@@ -74,6 +67,11 @@ func ClickKeyCode(code string) {
 // ClickHome 点击hone键
 func ClickHome() {
 	ClickKeyCode("3")
+}
+
+// ClickDelete 点击删除键
+func ClickDelete() {
+	ClickKeyCode("112")
 }
 
 // ClickHome 点击返回键
