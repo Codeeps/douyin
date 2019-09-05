@@ -5,6 +5,7 @@ import (
 	"github.com/cnbattle/douyin/database"
 	"github.com/cnbattle/douyin/model"
 	"github.com/cnbattle/douyin/utils"
+	"github.com/jinzhu/gorm"
 	"io"
 	"log"
 	"net/http"
@@ -18,9 +19,14 @@ func HandleItem(keyword string, item *model.Item) {
 	}
 	log.Println("开始处理数据:", item.Desc)
 
+	var video model.Video
+	err := database.Local.Where("aweme_id =?", item.AwemeId).First(&video).Error
+	if !gorm.IsRecordNotFoundError(err) {
+		return
+	}
+
 	isDownload := config.V.GetInt("isDownload")
 	var localAvatar, localCover, localVideo string
-	var err error
 	coverUrl, videoUrl := getCoverVideo(item)
 	if isDownload == 1 {
 		// 下载封面图 视频 头像图
@@ -33,7 +39,6 @@ func HandleItem(keyword string, item *model.Item) {
 		localAvatar, localCover, localVideo = item.Author.AvatarThumb.UrlList[0], coverUrl, videoUrl
 	}
 	// 写入数据库
-	var video model.Video
 	video.Keyword = keyword
 	video.AwemeId = item.AwemeId
 	video.AuthorId = item.Author.Uid
