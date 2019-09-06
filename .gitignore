@@ -20,3 +20,4 @@
 vendor/
 config.toml
 database.db
+keyword.db

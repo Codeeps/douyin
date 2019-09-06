@@ -8,21 +8,30 @@ import (
 	"github.com/cnbattle/douyin/internal/request"
 	"github.com/cnbattle/douyin/model"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 	"log"
 	"strconv"
 	"time"
 )
 
 func Start() {
-	keyword := config.V.GetStringSlice("search.keyword")
-	for _, value := range keyword {
-		log.Println("start:", value)
-		openSearchPage()
-		search(value)
-		swipePage(3)
-		adb.CloseApp(config.V.GetString("app.packageName"))
-		time.Sleep(300 * time.Second)
+	initDB()
+START:
+	var keywordMod keywordModel
+	err := KeywordDB.Where("status=?", 0).First(&keywordMod).Error
+	if gorm.IsRecordNotFoundError(err) {
+		KeywordDB.Model(keywordModel{}).Updates(keywordModel{Status: 0})
+		goto START
 	}
+	log.Println("start:", keywordMod.Keyword)
+	openSearchPage()
+	search(keywordMod.Keyword)
+	swipePage(3)
+	adb.CloseApp(config.V.GetString("app.packageName"))
+	keywordMod.Status = 1
+	KeywordDB.Save(&keywordMod)
+	time.Sleep(300 * time.Second)
+	goto START
 }
 
 func openSearchPage() {
