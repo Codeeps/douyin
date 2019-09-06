@@ -14,18 +14,18 @@ import (
 )
 
 func Start() {
-	goSearchPage()
 	keyword := config.V.GetStringSlice("search.keyword")
 	for _, value := range keyword {
 		log.Println("start:", value)
+		openSearchPage()
 		search(value)
 		swipePage(3)
-		time.Sleep(180 * time.Second)
+		adb.CloseApp(config.V.GetString("app.packageName"))
+		time.Sleep(300 * time.Second)
 	}
 }
 
-func goSearchPage() {
-	adb.CloseApp(config.V.GetString("app.packageName"))
+func openSearchPage() {
 	adb.RunApp(config.V.GetString("app.packageName") + "/" + config.V.GetString("app.startPath"))
 	time.Sleep(10 * time.Second)
 	adb.Click(strconv.Itoa(config.V.GetInt("search.openX")), strconv.Itoa(config.V.GetInt("search.openY")))
@@ -63,7 +63,6 @@ func swipePage(times int) {
 		adb.Swipe(config.V.GetString("swipe.startX"), config.V.GetString("swipe.startY"),
 			config.V.GetString("swipe.endX"), config.V.GetString("swipe.endY"))
 	}
-	adb.ClickBack()
 }
 
 // search 搜索页面
