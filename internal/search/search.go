@@ -26,11 +26,11 @@ START:
 	log.Println("start:", keywordMod.Keyword)
 	openSearchPage()
 	search(keywordMod.Keyword)
-	swipePage(3)
+	swipePage(10)
 	adb.CloseApp(config.V.GetString("app.packageName"))
 	keywordMod.Status = 1
 	KeywordDB.Save(&keywordMod)
-	time.Sleep(300 * time.Second)
+	time.Sleep(180 * time.Second)
 	goto START
 }
 

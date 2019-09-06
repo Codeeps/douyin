@@ -4,7 +4,6 @@ import (
 	"github.com/cnbattle/douyin/config"
 	"github.com/jinzhu/gorm"
 	"log"
-	"os"
 )
 
 var (
@@ -19,7 +18,6 @@ type keywordModel struct {
 }
 
 func initDB() {
-	os.Remove(args)
 	var err error
 	KeywordDB, err = gorm.Open("sqlite3", args)
 	if err != nil {
