@@ -11,6 +11,15 @@ startPath = ".main.MainActivity" # 抖音app包首页path
 restart = 60 # 重新打开时间  单位秒
 sleep = 60 # 重新打开睡眠时间  单位秒
 
+# 搜索模块
+[search]
+inputX = 300
+inputY = 150
+clearX = 840
+clearY = 150
+searchX = 980
+searchY = 150
+
 [swipe]
 # 滑动 开始和结束 像素坐标值
 startX = 500
