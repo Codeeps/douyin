@@ -13,11 +13,14 @@ sleep = 60 # 重新打开睡眠时间  单位秒
 
 # 搜索模块
 [search]
-inputX = 300
+keyword = ["昆明","云南"] #搜索关键词
+openX = 1000 # 首页搜索页面进口
+openY = 150
+inputX = 300 # 搜索框输入口
 inputY = 150
-clearX = 840
+clearX = 840 # 搜索框清空按钮
 clearY = 150
-searchX = 980
+searchX = 980 # 搜索页面 搜索按钮
 searchY = 150
 
 [swipe]
