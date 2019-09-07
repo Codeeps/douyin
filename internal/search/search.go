@@ -68,7 +68,7 @@ func handleJson(keyword string, data *model.SearchData) {
 func swipePage(times int) {
 	// 开始下滑 10秒
 	for i := 0; i < times; i++ {
-		time.Sleep(800 * time.Millisecond)
+		time.Sleep(time.Duration(config.V.GetInt("swipe.sleep")) * time.Millisecond)
 		adb.Swipe(config.V.GetString("swipe.startX"), config.V.GetString("swipe.startY"),
 			config.V.GetString("swipe.endX"), config.V.GetString("swipe.endY"))
 	}
