@@ -30,7 +30,7 @@ START:
 	adb.CloseApp(config.V.GetString("app.packageName"))
 	keywordMod.Status = 1
 	KeywordDB.Save(&keywordMod)
-	time.Sleep(180 * time.Second)
+	time.Sleep(time.Duration(config.V.GetInt("search.sleep")) * time.Second)
 	goto START
 }
 
@@ -68,7 +68,7 @@ func handleJson(keyword string, data *model.SearchData) {
 func swipePage(times int) {
 	// 开始下滑 10秒
 	for i := 0; i < times; i++ {
-		time.Sleep(400 * time.Millisecond)
+		time.Sleep(800 * time.Millisecond)
 		adb.Swipe(config.V.GetString("swipe.startX"), config.V.GetString("swipe.startY"),
 			config.V.GetString("swipe.endX"), config.V.GetString("swipe.endY"))
 	}
