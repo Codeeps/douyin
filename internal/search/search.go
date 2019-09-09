@@ -37,6 +37,7 @@ START:
 }
 
 func openSearchPage() {
+	adb.CloseApp(config.V.GetString("app.packageName"))
 	adb.RunApp(config.V.GetString("app.packageName") + "/" + config.V.GetString("app.startPath"))
 	time.Sleep(10 * time.Second)
 	adb.Click(strconv.Itoa(config.V.GetInt("search.openX")), strconv.Itoa(config.V.GetInt("search.openY")))
@@ -55,8 +56,6 @@ func GinController(ctx *gin.Context) {
 		fmt.Println(err)
 		ctx.Abort()
 	}
-	log.Println(keyword)
-	log.Println(data)
 	go handleJson(keyword, &data)
 }
 
