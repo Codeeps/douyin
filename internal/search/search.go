@@ -20,12 +20,14 @@ START:
 	var keywordMod keywordModel
 	err := KeywordDB.Where("status=?", 0).First(&keywordMod).Error
 	if gorm.IsRecordNotFoundError(err) {
-		KeywordDB.Model(keywordModel{}).Updates(keywordModel{Status: 0})
+		log.Println("la")
+		KeywordDB.Table("keyword_models").Where("status = ?", 1).Update("status", 0)
 		goto START
 	}
 	log.Println("start:", keywordMod.Keyword)
 	openSearchPage()
 	search(keywordMod.Keyword)
+	time.Sleep(3 * time.Second)
 	swipePage(10)
 	adb.CloseApp(config.V.GetString("app.packageName"))
 	keywordMod.Status = 1
@@ -53,6 +55,8 @@ func GinController(ctx *gin.Context) {
 		fmt.Println(err)
 		ctx.Abort()
 	}
+	log.Println(keyword)
+	log.Println(data)
 	go handleJson(keyword, &data)
 }
 
