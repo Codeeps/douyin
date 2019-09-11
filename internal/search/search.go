@@ -28,7 +28,7 @@ START:
 	openSearchPage()
 	search(keywordMod.Keyword)
 	time.Sleep(3 * time.Second)
-	swipePage(10)
+	//swipePage(10)
 	adb.CloseApp(config.V.GetString("app.packageName"))
 	keywordMod.Status = 1
 	KeywordDB.Save(&keywordMod)

@@ -43,6 +43,7 @@ func HandleItem(keyword string, item *model.Item) {
 	video.AwemeId = item.AwemeId
 	video.AuthorId = item.Author.Uid
 	video.Nickname = item.Author.Nickname
+	video.Gender = item.Author.Gender
 	video.Avatar = localAvatar
 	video.Desc = item.Desc
 	video.DiggCount = string(item.Statistics.DiggCount)

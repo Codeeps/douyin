@@ -9,6 +9,7 @@ type Video struct {
 	AuthorId     string `gorm:"varchar(64)"`
 	Nickname     string `gorm:"varchar(64)"`
 	Avatar       string `gorm:"varchar(64)"`
+	Gender       int    `gorm:"int(1)"`
 	Desc         string `gorm:"varchar(255)"`
 	DiggCount    string `gorm:"varchar(32)"`
 	CommentCount string `gorm:"varchar(32)"`
